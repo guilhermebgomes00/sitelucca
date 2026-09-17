@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Elegance Salon — Luca Ferreira | Mechas &amp; Cuidado Capilar</title>
+<meta name="description" content="Elegance Salon, Belo Horizonte/MG — Combo Mechas, cortes e tratamentos capilares com Luca Ferreira. Wella, Kérastase, Truss e Schwarzkopf.">
+
+<!-- ============================================================ -->
+<!-- FONTES                                                        -->
+<!-- ============================================================ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================ */
+/* CONFIGURAÇÕES — cores, tipografia e espaçamento               */
+/* Para trocar a paleta, edite apenas as variáveis abaixo.        */
+/* ============================================================ */
+:root{
+  /* --- cores --- */
+  --canvas:#faf6ee;        /* fundo geral (creme quente) */
+  --surface:#ffffff;       /* superfícies claras (cards, linhas de pagamento) */
+  --ink:#15120d;            /* texto principal / preto quente */
+  --ink-soft:#3a352c;       /* texto secundário */
+  --stone:#63594a;          /* texto terciário / legendas */
+  --ash:#c9c0ac;            /* cinza claro / traços sutis */
+  --hair:rgba(21,18,13,0.13); /* linhas finas (hairlines) */
+  --gold:#a9803c;           /* dourado — único acento cromático do sistema */
+  --gold-deep:#7c5a22;      /* dourado escuro — hover / detalhes */
+  --gold-soft:#e7d3ab;      /* dourado claro — seleção de texto, destaques sutis */
+
+  /* --- tipografia --- */
+  --font-display:'Cormorant Garamond', Georgia, serif; /* títulos editoriais */
+  --font-ui:'Jost','Avenir Next','Futura PT',ui-sans-serif,system-ui,sans-serif; /* nav, corpo, botões */
+
+  /* --- layout --- */
+  --page-max:1180px;
+  --nav-h:76px;
+}
+
+/* Tema escuro automático (segue o SO do visitante) */
+@media (prefers-color-scheme: dark){
+  :root{
+    --canvas:#141210;
+    --surface:#1b1815;
+    --ink:#f3efe6;
+    --ink-soft:#d8d0bf;
+    --stone:#b7ac97;
+    --ash:#4b4438;
+    --hair:rgba(243,239,230,0.15);
+  }
+}
+
+/* ============================================================ */
+/* RESET / BASE                                                  */
+/* ============================================================ */
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto;}
+  *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}
+}
+body{
+  margin:0;
+  background:var(--canvas);
+  color:var(--ink);
+  font-family:var(--font-ui);
+  font-weight:400;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none;}
+img{max-width:100%;display:block;}
+button{font-family:inherit;cursor:pointer;}
+.wrap{max-width:var(--page-max);margin:0 auto;padding:0 24px;}
+@media (max-width:560px){.wrap{padding:0 20px;}}
+
+.eyebrow{
+  font-size:12px;letter-spacing:0.16em;text-transform:uppercase;
+  color:var(--gold-deep);font-weight:500;
+}
+@media (prefers-color-scheme: dark){.eyebrow{color:var(--gold);}}
+
+:focus-visible{outline:2px solid var(--gold-deep);outline-offset:3px;}
+
+/* Animação de entrada ao rolar — aplicada via JS (classe .in-view) */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease, transform .7s ease;}
+.reveal.in-view{opacity:1;transform:translateY(0);}
+
+/* ============================================================ */
+/* HEADER / NAVBAR                                                */
+/* Editar: links do menu, texto do botão de agendamento           */
+/* ============================================================ */
+header{
+  position:sticky;top:0;z-index:100;
+  background:rgba(250,246,238,0.7);
+  backdrop-filter:blur(14px) saturate(140%);
+  -webkit-backdrop-filter:blur(14px) saturate(140%);
+  border-bottom:1px solid transparent;
+  transition:border-color .35s ease, background .35s ease, box-shadow .35s ease;
+}
+@media (prefers-color-scheme: dark){
+  header{background:rgba(20,18,16,0.72);}
+}
+header.scrolled{
+  border-bottom-color:var(--hair);
+  box-shadow:0 4px 24px rgba(0,0,0,0.05);
+}
+.nav{
+  height:var(--nav-h);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.nav-links{display:flex;gap:34px;list-style:none;margin:0;padding:0;}
+.nav-links a{
+  font-size:12px;letter-spacing:0.08em;text-transform:uppercase;
+  color:var(--ink-soft);padding-bottom:3px;
+  border-bottom:1px solid transparent;
+  transition:border-color .2s ease, color .2s ease;
+}
+.nav-links a:hover{color:var(--ink);border-color:var(--gold);}
+
+.wordmark{text-align:center;font-family:var(--font-display);line-height:1;}
+.wordmark .line1{display:block;font-size:19px;letter-spacing:0.24em;font-weight:500;}
+.wordmark .line2{display:block;font-size:9.5px;letter-spacing:0.4em;color:var(--stone);margin-top:4px;font-family:var(--font-ui);}
+
+.nav-cta{
+  font-size:12px;letter-spacing:0.08em;text-transform:uppercase;
+  border:1px solid var(--ink);padding:10px 18px;color:var(--ink);white-space:nowrap;
+  transition:background .2s ease,color .2s ease;
+}
+.nav-cta:hover{background:var(--ink);color:var(--canvas);}
+
+.nav-toggle{
+  display:none;background:none;border:none;padding:8px;width:36px;height:36px;
+  position:relative;
+}
+.nav-toggle span{
+  display:block;position:absolute;left:6px;right:6px;height:1px;background:var(--ink);
+  transition:transform .3s ease, opacity .3s ease, top .3s ease;
+}
+.nav-toggle span:nth-child(1){top:13px;}
+.nav-toggle span:nth-child(2){top:19px;}
+.nav-toggle span:nth-child(3){top:25px;}
+.nav-toggle.open span:nth-child(1){top:19px;transform:rotate(45deg);}
+.nav-toggle.open span:nth-child(2){opacity:0;}
+.nav-toggle.open span:nth-child(3){top:19px;transform:rotate(-45deg);}
+
+@media (max-width:860px){
+  .nav-links.desktop-only, .nav-cta.desktop-only{display:none;}
+  .nav-toggle{display:block;}
+}
+
+.nav-mobile{
+  max-height:0;overflow:hidden;
+  background:var(--canvas);
+  border-bottom:1px solid transparent;
+  transition:max-height .35s ease, border-color .35s ease;
+}
+.nav-mobile.open{max-height:340px;border-bottom-color:var(--hair);}
+.nav-mobile ul{list-style:none;margin:0;padding:8px 0 20px;display:flex;flex-direction:column;}
+.nav-mobile a{
+  padding:14px 24px;font-size:14px;letter-spacing:0.04em;
+  border-top:1px solid var(--hair);color:var(--ink-soft);
+}
+.nav-mobile a.cta{color:var(--gold-deep);font-weight:500;}
+
+/* ============================================================ */
+/* HERO                                                           */
+/* Editar: título, subtítulo, CTAs, imagem de fundo do painel      */
+/* ============================================================ */
+.hero{
+  display:grid;grid-template-columns:1.05fr 0.95fr;
+  align-items:stretch;border-bottom:1px solid var(--hair);
+}
+@media (max-width:900px){.hero{grid-template-columns:1fr;}}
+
+.hero-text{
+  padding:104px 56px 96px 24px;max-width:540px;margin-left:auto;
+  display:flex;flex-direction:column;justify-content:center;
+}
+@media (max-width:900px){
+  .hero-text{margin:0;padding:64px 24px 56px;max-width:none;}
+}
+.hero-text h1{
+  font-family:var(--font-display);font-weight:500;
+  font-size:clamp(32px,4.2vw,50px);line-height:1.08;
+  margin:16px 0 22px;letter-spacing:0.005em;
+}
+.hero-text p{
+  font-size:16px;line-height:1.65;color:var(--stone);
+  max-width:44ch;margin:0 0 34px;
+}
+.cta-row{display:flex;gap:14px;flex-wrap:wrap;}
+.btn{
+  font-size:12px;letter-spacing:0.08em;text-transform:uppercase;
+  padding:14px 24px;border:1px solid var(--ink);
+  display:inline-flex;align-items:center;gap:8px;
+  transition:background .25s ease,color .25s ease,border-color .25s ease, transform .25s ease;
+}
+.btn-fill{background:var(--ink);color:var(--canvas);}
+.btn-fill:hover{background:var(--gold-deep);border-color:var(--gold-deep);transform:translateY(-1px);}
+.btn-ghost{background:transparent;color:var(--ink);}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold-deep);transform:translateY(-1px);}
+
+/* Painel visual — placeholder editorial em CSS.
+   SUBSTITUIR por foto real do salão/estúdio quando disponível:
+   trocar o div .hero-visual por <img src="sua-foto.jpg" ...> mantendo a classe. */
+.hero-visual{
+  position:relative;overflow:hidden;min-height:520px;
+  background:
+    radial-gradient(120% 140% at 15% 15%, rgba(169,128,60,0.22), transparent 55%),
+    linear-gradient(160deg,#1c1712 0%, #0f0d0a 55%, #221a10 100%);
+  display:flex;align-items:center;justify-content:center;
+}
+.hero-visual .ribbon{
+  position:absolute;inset:0;
+  background:repeating-linear-gradient(115deg, transparent 0 46px, rgba(169,128,60,0.14) 46px 47px);
+  animation:driftRibbon 40s linear infinite;
+}
+@keyframes driftRibbon{from{background-position:0 0;}to{background-position:600px 0;}}
+
+.hero-monogram{position:relative;text-align:center;color:#f3efe6;}
+.hero-monogram .mono{
+  font-family:var(--font-display);font-size:clamp(96px,14vw,150px);line-height:1;letter-spacing:0.02em;
+  background:linear-gradient(180deg,#f3e6c8 0%, #a9803c 60%, #6f4f1e 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.hero-monogram .cap{
+  display:block;margin-top:10px;font-size:12px;letter-spacing:0.32em;color:#c9bfa5;
+}
+.hero-tagbox{
+  position:absolute;left:32px;bottom:32px;right:32px;max-width:250px;
+  border:1px solid rgba(243,239,230,0.32);padding:14px 18px;
+  color:#f3efe6;font-size:12px;letter-spacing:0.04em;line-height:1.55;
+}
+@media (max-width:520px){.hero-tagbox{position:static;max-width:none;margin:24px;}}
+
+/* ============================================================ */
+/* SEÇÕES — títulos e espaçamento comum                          */
+/* ============================================================ */
+section{border-bottom:1px solid var(--hair);}
+.section-pad{padding:88px 0;}
+@media (max-width:640px){.section-pad{padding:60px 0;}}
+.section-head{
+  display:flex;justify-content:space-between;align-items:flex-end;
+  gap:24px;margin-bottom:44px;flex-wrap:wrap;
+}
+.section-head h2{font-family:var(--font-display);font-weight:500;font-size:clamp(27px,3vw,37px);margin:10px 0 0;}
+.section-head p{color:var(--stone);font-size:15px;max-width:38ch;margin:0;line-height:1.55;}
+
+/* ============================================================ */
+/* COMBO MECHAS — serviço em destaque (fundo escuro)              */
+/* Editar: nomes dos tons, preços, observações                    */
+/* ============================================================ */
+.combo{background:var(--ink);color:var(--canvas);}
+.combo .eyebrow{color:var(--gold);}
+.combo .section-head p{color:var(--ash);}
+.combo-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  background:var(--hair);border:1px solid var(--hair);
+}
+@media (max-width:760px){.combo-grid{grid-template-columns:1fr;}}
+.combo-card{
+  background:var(--ink);padding:40px 32px;display:flex;flex-direction:column;gap:18px;
+  transition:background .3s ease;
+}
+.combo-card:hover{background:#1e1913;}
+.combo-card .tone{font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);}
+.combo-card .name{font-family:var(--font-display);font-size:26px;font-weight:500;}
+.combo-card .price{font-size:32px;font-weight:500;color:var(--canvas);margin-top:auto;}
+.combo-card .price small{font-size:13px;color:var(--ash);font-weight:400;}
+.combo-note{
+  margin-top:40px;display:flex;gap:40px;flex-wrap:wrap;
+  font-size:13px;color:var(--ash);line-height:1.6;
+}
+.combo-note strong{color:var(--gold-soft);font-weight:500;}
+
+/* ============================================================ */
+/* LISTA DE PROCEDIMENTOS                                         */
+/* Editar: itens, observações e valores                           */
+/* ============================================================ */
+.price-list{border-top:1px solid var(--hair);}
+.price-row{
+  display:flex;justify-content:space-between;align-items:baseline;gap:20px;
+  padding:20px 4px;border-bottom:1px solid var(--hair);
+  transition:padding-left .25s ease, background .25s ease;
+}
+.price-row:hover{padding-left:14px;background:rgba(169,128,60,0.06);}
+.price-row .item{font-size:16px;}
+.price-row .item .note{display:block;font-size:12px;color:var(--stone);margin-top:3px;}
+.price-row .amount{font-weight:500;font-size:16px;white-space:nowrap;}
+.price-row .amount small{color:var(--stone);font-weight:400;font-size:12px;margin-right:4px;}
+
+/* ============================================================ */
+/* MARCAS                                                         */
+/* ============================================================ */
+.brands-row{display:flex;flex-wrap:wrap;border-top:1px solid var(--hair);}
+.brand-item{
+  flex:1 1 220px;padding:34px 24px;
+  border-right:1px solid var(--hair);border-bottom:1px solid var(--hair);
+  text-align:center;font-family:var(--font-display);font-size:22px;
+  color:var(--ink-soft);transition:color .25s ease;
+}
+.brand-item:hover{color:var(--gold-deep);}
+.brand-item span{display:block;font-family:var(--font-ui);font-size:10px;letter-spacing:0.18em;color:var(--stone);margin-top:6px;text-transform:uppercase;}
+.brand-item:last-child{border-right:none;}
+
+/* ============================================================ */
+/* FORMAS DE PAGAMENTO                                            */
+/* ============================================================ */
+.pay-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--hair);border:1px solid var(--hair);}
+@media (max-width:700px){.pay-grid{grid-template-columns:1fr;}}
+.pay-card{
+  background:var(--surface);padding:32px 26px;display:flex;align-items:center;gap:16px;
+  transition:background .25s ease;
+}
+.pay-card:hover{background:var(--canvas);}
+.pay-card svg{flex:none;width:26px;height:26px;stroke:var(--ink);}
+.pay-card .t{font-size:15px;font-weight:500;}
+.pay-card .s{font-size:12.5px;color:var(--stone);margin-top:2px;}
+
+/* ============================================================ */
+/* LOCALIZAÇÃO                                                    */
+/* Editar: endereço, link do mapa                                 */
+/* ============================================================ */
+.loc{display:grid;grid-template-columns:1fr 1fr;}
+@media (max-width:820px){.loc{grid-template-columns:1fr;}}
+.loc-text{padding:88px 56px 88px 24px;margin-left:auto;max-width:460px;}
+@media (max-width:820px){.loc-text{margin:0;padding:60px 24px;max-width:none;}}
+.loc-text h2{font-family:var(--font-display);font-size:31px;font-weight:500;margin:12px 0 18px;}
+.loc-text .addr{font-size:16px;line-height:1.6;color:var(--ink-soft);margin-bottom:28px;}
+.loc-map{
+  background:
+    linear-gradient(var(--hair) 1px, transparent 1px) 0 0/38px 38px,
+    linear-gradient(90deg, var(--hair) 1px, transparent 1px) 0 0/38px 38px,
+    var(--surface);
+  display:flex;align-items:center;justify-content:center;min-height:320px;position:relative;
+}
+.loc-pin{display:flex;flex-direction:column;align-items:center;gap:8px;}
+.loc-pin svg{width:30px;height:30px;stroke:var(--gold-deep);}
+.loc-pin span{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--stone);}
+
+/* ============================================================ */
+/* CTA FINAL                                                      */
+/* Editar: texto de fechamento e link do WhatsApp                 */
+/* ============================================================ */
+.cta-final{background:var(--ink);color:var(--canvas);text-align:center;}
+.cta-final .section-pad{padding:96px 24px;}
+.cta-final .eyebrow{color:var(--gold);}
+.cta-final h2{
+  font-family:var(--font-display);font-weight:500;
+  font-size:clamp(28px,4vw,44px);margin:14px auto 30px;max-width:20ch;line-height:1.15;
+}
+.cta-final .btn-fill{background:var(--gold);border-color:var(--gold);color:#15120d;}
+.cta-final .btn-fill:hover{background:var(--gold-soft);border-color:var(--gold-soft);}
+
+/* ============================================================ */
+/* FOOTER                                                         */
+/* Editar: redes sociais, copyright                               */
+/* ============================================================ */
+footer{padding:40px 0;}
+.foot-row{
+  display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
+  font-size:12px;color:var(--stone);letter-spacing:0.04em;
+}
+.foot-row a{color:var(--ink-soft);transition:color .2s ease;}
+.foot-row a:hover{color:var(--gold-deep);}
+
+::selection{background:var(--gold-soft);color:#15120d;}
+</style>
+</head>
+<body>
+
+<!-- ============================================================ -->
+<!-- HEADER                                                        -->
+<!-- Editar links de navegação e texto do botão "Agendar" aqui      -->
+<!-- ============================================================ -->
+<header id="siteHeader">
+  <div class="wrap nav">
+    <ul class="nav-links desktop-only">
+      <li><a href="#mechas">Mechas</a></li>
+      <li><a href="#servicos">Serviços</a></li>
+      <li><a href="#marcas">Marcas</a></li>
+    </ul>
+    <div class="wordmark">
+      <span class="line1">Elegance</span>
+      <span class="line2">SALON</span>
+    </div>
+    <!-- EDITAR: link de agendamento (WhatsApp) -->
+    <a class="nav-cta desktop-only" href="https://wa.me/5531900000000" target="_blank" rel="noopener">Agendar</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <nav class="nav-mobile" id="navMobile">
+    <ul>
+      <li><a href="#mechas">Mechas</a></li>
+      <li><a href="#servicos">Serviços</a></li>
+      <li><a href="#marcas">Marcas</a></li>
+      <li><a href="#localizacao">Localização</a></li>
+      <li><a class="cta" href="https://wa.me/5531900000000" target="_blank" rel="noopener">Agendar pelo WhatsApp</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- ============================================================ -->
+<!-- HERO                                                          -->
+<!-- Editar título, texto e CTAs. Painel direito é um placeholder   -->
+<!-- em CSS — substitua por foto real quando tiver.                 -->
+<!-- ============================================================ -->
+<section class="hero">
+  <div class="hero-text reveal">
+    <span class="eyebrow">Belo Horizonte · MG</span>
+    <h1>Mechas e cuidado capilar com a assinatura de Luca Ferreira</h1>
+    <p>Salão especializado em mechas, coloração e tratamento capilar, com produtos Wella, Kérastase, Truss e Schwarzkopf. Atendimento individual, do diagnóstico à finalização.</p>
+    <div class="cta-row">
+      <a class="btn btn-fill" href="#mechas">Ver tabela de preços</a>
+      <a class="btn btn-ghost" href="#localizacao">Agendar horário</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="ribbon"></div>
+    <div class="hero-monogram">
+      <span class="mono">ES</span>
+      <span class="cap">Luca Ferreira · @lucaferres</span>
+    </div>
+    <div class="hero-tagbox">Avaliação de mechas antes de cada combo — o tom é definido junto com você.</div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- COMBO MECHAS (serviço principal)                              -->
+<!-- Editar tons, preços e observações                              -->
+<!-- ============================================================ -->
+<section class="combo" id="mechas">
+  <div class="wrap section-pad">
+    <div class="section-head reveal">
+      <div>
+        <span class="eyebrow">Serviço principal</span>
+        <h2>Combo Mechas</h2>
+      </div>
+      <p>Avaliação + mechas + tratamento + finalização, em um único atendimento.</p>
+    </div>
+    <div class="combo-grid reveal">
+      <div class="combo-card">
+        <span class="tone">Loiro</span>
+        <span class="name">Mechas loiras</span>
+        <span class="price">R$ 1.000<small> / sessão</small></span>
+      </div>
+      <div class="combo-card">
+        <span class="tone">Morena iluminada</span>
+        <span class="name">Morena ilu</span>
+        <span class="price">R$ 900<small> / sessão</small></span>
+      </div>
+      <div class="combo-card">
+        <span class="tone">Chocolate</span>
+        <span class="name">Mechas chocolate</span>
+        <span class="price">R$ 800<small> / sessão</small></span>
+      </div>
+    </div>
+    <div class="combo-note reveal">
+      <span><strong>Tratamento incluso</strong> — escolhido de acordo com a necessidade do seu cabelo no dia.</span>
+      <span><strong>Corte no dia das mechas</strong> — R$ 200 adicionais.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- OUTROS PROCEDIMENTOS                                          -->
+<!-- Editar itens, observações e valores                            -->
+<!-- ============================================================ -->
+<section id="servicos">
+  <div class="wrap section-pad">
+    <div class="section-head reveal">
+      <div>
+        <span class="eyebrow">Cardápio completo</span>
+        <h2>Outros procedimentos</h2>
+      </div>
+      <p>Corte, hidratação, coloração e tratamentos avulsos.</p>
+    </div>
+    <div class="price-list reveal">
+      <div class="price-row"><span class="item">Corte<span class="note">Finalização inclusa</span></span><span class="amount"><small>R$</small>250</span></div>
+      <div class="price-row"><span class="item">Corte + Hidratação<span class="note">Linha Wella</span></span><span class="amount"><small>R$</small>350</span></div>
+      <div class="price-row"><span class="item">Corte + Nutrição<span class="note">Linha Kérastase</span></span><span class="amount"><small>R$</small>450</span></div>
+      <div class="price-row"><span class="item">Corte + Reconstrução<span class="note">Linha Truss</span></span><span class="amount"><small>R$</small>550</span></div>
+      <div class="price-row"><span class="item">Coloração de raiz<span class="note">Cabelos brancos</span></span><span class="amount"><small>R$</small>260</span></div>
+      <div class="price-row"><span class="item">Escova e babyliss<span class="note">Finalização</span></span><span class="amount"><small>R$</small>180</span></div>
+      <div class="price-row"><span class="item">Alteração de fundo</span><span class="amount"><small>R$</small>350</span></div>
+      <div class="price-row"><span class="item">Avaliação<span class="note">Teste de mechas</span></span><span class="amount"><small>R$</small>75</span></div>
+      <div class="price-row"><span class="item">Tratamento</span><span class="amount"><small>A partir de R$</small>200</span></div>
+      <div class="price-row"><span class="item">Cronograma capilar<span class="note">4 sessões, com extras</span></span><span class="amount"><small>R$</small>680</span></div>
+      <div class="price-row"><span class="item">Correção de cor</span><span class="amount"><small>A partir de R$</small>450</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- MARCAS                                                        -->
+<!-- ============================================================ -->
+<section id="marcas">
+  <div class="wrap section-pad" style="padding-bottom:0;">
+    <div class="section-head reveal" style="margin-bottom:0;">
+      <div>
+        <span class="eyebrow">Confiança de mercado</span>
+        <h2>Marcas que trabalhamos</h2>
+      </div>
+    </div>
+  </div>
+  <div class="brands-row reveal">
+    <div class="brand-item">Wella<span>Professionals</span></div>
+    <div class="brand-item">Schwarzkopf<span>Professional</span></div>
+    <div class="brand-item">Truss<span>Hair Therapy</span></div>
+    <div class="brand-item">Kérastase<span>Paris</span></div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- FORMAS DE PAGAMENTO                                           -->
+<!-- ============================================================ -->
+<section>
+  <div class="wrap section-pad">
+    <div class="section-head reveal">
+      <div>
+        <span class="eyebrow">Formas de pagamento</span>
+        <h2>Como pagar</h2>
+      </div>
+    </div>
+    <div class="pay-grid reveal">
+      <div class="pay-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><path d="M4 12l3-3 5 5 8-8"/><path d="M4 19h16"/></svg>
+        <div><div class="t">PIX</div><div class="s">Pagamento instantâneo</div></div>
+      </div>
+      <div class="pay-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><rect x="3" y="6" width="18" height="12" rx="0"/><path d="M3 10h18"/></svg>
+        <div><div class="t">Cartão</div><div class="s">Até 3x sem juros</div></div>
+      </div>
+      <div class="pay-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><circle cx="12" cy="12" r="8.5"/><path d="M12 8v8M9 10.5h4.5a1.5 1.5 0 010 3H10a1.5 1.5 0 000 3h4.5"/></svg>
+        <div><div class="t">Dinheiro</div><div class="s">Pagamento em espécie</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- LOCALIZAÇÃO                                                    -->
+<!-- Editar endereço e link do mapa                                 -->
+<!-- ============================================================ -->
+<section class="loc" id="localizacao">
+  <div class="loc-text reveal">
+    <span class="eyebrow">Endereço</span>
+    <h2>Nosso endereço</h2>
+    <p class="addr">R. Ouro Preto, 1588 — Santo Agostinho<br>Belo Horizonte, MG</p>
+    <a class="btn btn-fill" href="https://www.google.com/maps/search/?api=1&query=R.+Ouro+Preto%2C+1588+Santo+Agostinho+Belo+Horizonte+MG" target="_blank" rel="noopener">Como chegar</a>
+  </div>
+  <div class="loc-map">
+    <div class="loc-pin">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><path d="M12 21s7-7.2 7-12a7 7 0 10-14 0c0 4.8 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>
+      <span>Santo Agostinho, BH</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- CTA FINAL                                                      -->
+<!-- Editar texto de fechamento e link do WhatsApp                  -->
+<!-- ============================================================ -->
+<section class="cta-final">
+  <div class="wrap section-pad reveal">
+    <span class="eyebrow">Vamos cuidar do seu cabelo</span>
+    <h2>Agende sua avaliação e escolha o tom das suas mechas</h2>
+    <a class="btn btn-fill" href="https://wa.me/5531900000000" target="_blank" rel="noopener">Agendar pelo WhatsApp</a>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- FOOTER                                                         -->
+<!-- Editar redes sociais e copyright                                -->
+<!-- ============================================================ -->
+<footer>
+  <div class="wrap foot-row">
+    <span>© 2026 Elegance Salon — Luca Ferreira</span>
+    <a href="https://instagram.com/lucaferres" target="_blank" rel="noopener">@lucaferres</a>
+    <a href="#localizacao">R. Ouro Preto, 1588 · Santo Agostinho · BH/MG</a>
+  </div>
+</footer>
+
+<!-- ============================================================ -->
+<!-- JAVASCRIPT                                                     -->
+<!-- Menu mobile, navbar ao rolar e animações de entrada             -->
+<!-- ============================================================ -->
+<script>
+(function(){
+  "use strict";
+
+  /* --- Navbar: sombra/borda ao rolar --- */
+  var header = document.getElementById('siteHeader');
+  var onScroll = function(){
+    if (window.scrollY > 8) header.classList.add('scrolled');
+    else header.classList.remove('scrolled');
+  };
+  document.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  /* --- Menu mobile --- */
+  var toggle = document.getElementById('navToggle');
+  var mobileNav = document.getElementById('navMobile');
+  toggle.addEventListener('click', function(){
+    var isOpen = mobileNav.classList.toggle('open');
+    toggle.classList.toggle('open', isOpen);
+    toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+  mobileNav.querySelectorAll('a').forEach(function(link){
+    link.addEventListener('click', function(){
+      mobileNav.classList.remove('open');
+      toggle.classList.remove('open');
+      toggle.setAttribute('aria-expanded','false');
+    });
+  });
+
+  /* --- Revelação suave ao rolar (IntersectionObserver) --- */
+  var revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window && revealEls.length){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting){
+          entry.target.classList.add('in-view');
+          io.unobserve(entry.target);
+        }
+      });
+    }, {threshold:0.12, rootMargin:'0px 0px -40px 0px'});
+    revealEls.forEach(function(el){ io.observe(el); });
+  } else {
+    revealEls.forEach(function(el){ el.classList.add('in-view'); });
+  }
+})();
+</script>
+</body>
+</html>
