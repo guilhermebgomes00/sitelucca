@@ -2,6 +2,8 @@
 
 Landing page de vendas para o curso online do cabeleireiro **Luca Ferreira**, feita para um cliente real. A página apresenta o professor e o conteúdo do curso e leva a pessoa até o checkout na Kiwify.
 
+**[Ver o site no ar →](https://previalucca.netlify.app/)**
+
 <p align="center">
   <img src="docs/desktop.jpg" alt="Versão desktop da landing page" width="72%">
   &nbsp;
