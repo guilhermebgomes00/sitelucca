@@ -1,8 +1,6 @@
-# Site estático: a Netlify publica a própria pasta, sem etapa de build.
 [build]
   publish = "."
 
-# Cache de uma semana para imagens, CSS e JS; o HTML sempre é revalidado.
 [[headers]]
   for = "/assets/*"
   [headers.values]
